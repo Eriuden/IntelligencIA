@@ -8,6 +8,7 @@ export const NavBar = () => {
   const isUserLoggedIn = true
 
   const [providers, setProviders] = useState(null)
+  const [toggleDropDown, setToggleDropDown] = useState(false)
 
   useEffect(()=> {
     const setTheProviders = async ()=> {
@@ -33,6 +34,40 @@ export const NavBar = () => {
                     <Link href="/profile">
                         Profil 
                     </Link>
+                </div>
+            ): (
+                <>
+                    {providers && 
+                        Object.values(providers).map((provider) => (
+                            <button type='button'
+                            key={provider.name}
+                            onClick={()=> signIn(provider.id)
+                            }>
+                                Connexion
+                            </button>
+                        ))}
+                </>
+            )}
+        </div>
+
+        {/*Version mobile */}
+        <div className='sm:hidden flex relative'>
+            {isUserLoggedIn ? (
+                <div className='flex gap-3 md:gap-5'>
+                    <Link href="/create-prompt"> Créer un post</Link>
+                    <button type='button' onClick={signOut}>Déconnexion</button>
+
+                    <Link href="/profile" onClick={()=> setToggleDropDown((prev)=>
+                        !prev)}>
+                        Profil 
+                    </Link>
+
+                    {toggleDropDown && (
+                        <div>
+                            <Link href="/profile"
+                            onClick={() => setToggleDropDown}></Link>
+                        </div>
+                    )}
                 </div>
             ): (
                 <>
