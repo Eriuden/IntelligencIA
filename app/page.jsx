@@ -1,4 +1,5 @@
 import React from 'react'
+import Feed from '../components/Feed'
 
 export const Home = () => {
   return (
@@ -8,6 +9,8 @@ export const Home = () => {
         <br className='max-md:hidden'/>
         <span className='text-center'>Prompts générés par l'IA</span>
       </h1>
+
+      <Feed/>
         
     </section>
   )
