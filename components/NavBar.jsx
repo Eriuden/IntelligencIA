@@ -65,7 +65,22 @@ export const NavBar = () => {
                     {toggleDropDown && (
                         <div>
                             <Link href="/profile"
-                            onClick={() => setToggleDropDown}></Link>
+                            onClick={() => setToggleDropDown(false)}>
+                                Profil
+                            </Link>
+
+                            <Link href="/create-prompt"
+                            onClick={() => setToggleDropDown(false)}>
+                                Générer une prompt
+                            </Link>
+
+                            <button type='button' onClick={()=> {
+                                setToggleDropDown(false)
+                                signOut()
+                            }}
+                            className="mt-5 w-full">
+                                Déconnexion
+                            </button>
                         </div>
                     )}
                 </div>
