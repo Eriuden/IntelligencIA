@@ -5,7 +5,7 @@ import {signIn, signOut, useSession, getProviders} from "next-auth/react"
 
 export const NavBar = () => {
 
-  const isUserLoggedIn = true
+  const {data: session} = useSession()
 
   const [providers, setProviders] = useState(null)
   const [toggleDropDown, setToggleDropDown] = useState(false)
@@ -14,10 +14,10 @@ export const NavBar = () => {
     const setTheProviders = async ()=> {
         const response = await getProviders()
 
-        setTheProviders(response)
+        setProviders(response)
     }
 
-    setProviders()
+    setTheProviders()
   }, [])
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
@@ -26,13 +26,18 @@ export const NavBar = () => {
         </Link>
 
         <div className='sm:flex hidden'>
-            {isUserLoggedIn ? (
+            {session?.user ? (
                 <div className='flex gap-3 md:gap-5'>
                     <Link href="/create-prompt"> Créer un post</Link>
                     <button type='button' onClick={signOut}>Déconnexion</button>
 
                     <Link href="/profile">
-                        Profil 
+                        <Image src={session?.user.image} 
+                        width={37}
+                        height={37}
+                        className="rounded-full"
+                        alt="Profil"
+                        />
                     </Link>
                 </div>
             ): (
@@ -52,14 +57,19 @@ export const NavBar = () => {
 
         {/*Version mobile */}
         <div className='sm:hidden flex relative'>
-            {isUserLoggedIn ? (
+            {session?.user ? (
                 <div className='flex gap-3 md:gap-5'>
                     <Link href="/create-prompt"> Créer un post</Link>
                     <button type='button' onClick={signOut}>Déconnexion</button>
 
                     <Link href="/profile" onClick={()=> setToggleDropDown((prev)=>
                         !prev)}>
-                        Profil 
+                        <Image src={session?.user.image} 
+                        width={37}
+                        height={37}
+                        className="rounded-full"
+                        alt="Profil"
+                        />
                     </Link>
 
                     {toggleDropDown && (
