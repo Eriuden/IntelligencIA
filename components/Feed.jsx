@@ -7,7 +7,13 @@ import { PromptCard } from "./PromptCard"
 const PromptCardList = ({data, handleTagClick}) => {
   return(
     <div className="mt-16">
-
+      {data.map((post) => (
+        <PromptCard
+          key={post.id}
+          post={post}
+          handleTagClick={handleTagClick()}
+        />
+      ))}
     </div>
   )
 }
@@ -43,7 +49,7 @@ export const Feed = () => {
       </form>
 
       <PromptCardList 
-        data={{prompts}}
+        data={{posts}}
         handleTagClick={() => {}}
       />
     </section>
