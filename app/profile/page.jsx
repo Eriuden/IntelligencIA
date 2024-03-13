@@ -10,6 +10,8 @@ export const MyProfile = () => {
 
   const {data: session} = useSession()
 
+  const router= useRouter()
+
   const [posts, setPosts] = useState([])
 
   useEffect(()=> {
@@ -26,12 +28,12 @@ export const MyProfile = () => {
     fetchPosts()
   }, [])
 
-  const handleEdit = () => {
-
+  const handleEdit = (post) => {
+    router.push(`/update-prompt?id=${post._id}`)
   }
 
   const handleDelete = async() => {
-
+    
   }
 
   return (
