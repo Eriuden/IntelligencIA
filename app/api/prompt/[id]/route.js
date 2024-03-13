@@ -37,3 +37,15 @@ export const PATCH = async(req, {params}) => {
         return new Response("Echec de l'opération", {status:500})
     }
 }
+
+export const DELETE = async(req, {params}) => {
+    try {
+        await connectToDB()
+
+        await Prompt.findByIdAndDelete(params.id)
+
+        return new Response("Prompt supprimé avec succés")        
+    } catch (error) {
+        return new Response("Echec de l'opération", {status:500})
+    }
+}
