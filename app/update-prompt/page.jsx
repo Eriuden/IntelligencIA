@@ -28,10 +28,36 @@ export const updatePrompt = () => {
     }
   }, [promptId])
 
+  const editPrompt = async(e) => {
+    e.preventDefault()
+    setSubmitting(true)
+
+    if(!promptId) return alert("Prompt Id non trouvé")
+
+    try {
+      const response = await fetch(`api/prompt/${promptId}`,
+      {
+        method:"PATCH",
+        body: JSON.stringify({
+          prompt: post.prompt,
+          userId: session?.user.id,
+          tag: post.tag 
+        })
+      })
+
+      if(response.ok) {
+        router.push("/")
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <Form
-    type="update"
+    type="Editer"
     post={post}
     setPost={setPost}
     submitting={submitting}

@@ -41,7 +41,7 @@ export const CréationPrompt = () => {
 
   return (
     <Form
-    type="create"
+    type="Créer"
     post={post}
     setPost={setPost}
     submitting={submitting}
