@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react'
-import {PromptCard} from "./PromptCard"
 import { useSearchParams, useRouter } from 'next/navigation'
 
 
@@ -25,29 +24,29 @@ export const Searcher = () => {
     const submitSearch = async(e)=> {
         if (submitted === false) {
             e.preventDefault()
-        setSubmitted(true)
+            setSubmitted(true)
 
-        if(!creator || prompt || tag) return alert("Données introuvables")
+            if(!creator || !prompt || !tag) return alert("Données introuvables")
 
-        try {
-            const result = await fetch(`api/prompt/${creator || prompt || tag}`,
-            {
-              method:"GET",
-              body: JSON.stringify({
-                creator: search.creator,
-                prompt: search.prompt,
-                tag: search.tag 
-              })
-            })
-      
-            if(result.ok) {
-              router.push("/search")
+            try {
+                const result = await fetch(`api/prompt/${creator || prompt || tag}`,
+                {
+                method:"GET",
+                body: JSON.stringify({
+                    creator: search.creator,
+                    prompt: search.prompt,
+                    tag: search.tag 
+                })
+                })
+        
+                if(result.ok) {
+                router.push("/search")
+                }
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setSubmitted(false)
             }
-          } catch (error) {
-            console.log(error)
-          } finally {
-            setSubmitted(false)
-          }
         }     
     }
      
